@@ -1,0 +1,38 @@
+<div>
+  <div>
+    <h1>Uploader here</h1>
+    <.form let={f} for={@changeset} id="product_uploader_form" phx-change="validate" phx-submit="save">
+      <%= hidden_input f, :source_file_name_upload %>
+      <%= label f, :source_file_name %>
+
+      <div phx-drop-target={@uploads.source_file_name.ref}>
+        <%= live_file_input @uploads.source_file_name %>
+      </div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </.form>
+  </div>
+
+  <%= if @products do %>
+  <h1>List Products</h1>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Part Number</th>
+        <th scope="col">Branch Id</th>
+        <th scope="col">Part Price</th>
+        <th scope="col">Short desc</th>
+      </tr>
+    </thead>
+    <tbody id="product_listing_body">
+    <%= for product <- @products do %>
+      <tr>
+        <td><%= product.part_number %></td>
+        <td><%= product.branch_id %></td>
+        <td><%= product.part_price %></td>
+        <td><%= product.short_desc %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% end %>
+</div>
